@@ -108,7 +108,9 @@ class ViewController: UIViewController {
         let movesToCheck = player1Turn ? player1Moves : player2Moves
         
         for winner in winningMoves {
-            if movesToCheck.containsArray(array: winner) {
+            let win = winner.allSatisfy { movesToCheck.contains($0) }
+            
+            if win {
                 return true
             } else {
                 continue
@@ -144,11 +146,5 @@ class ViewController: UIViewController {
                                         self.startNewGame()
                                       }))
         present(alert, animated: true)
-    }
-}
-
-extension Array where Element: Equatable {
-    func containsArray(array: [Element]) -> Bool {
-        return !array.contains { !self.contains($0) }
     }
 }
